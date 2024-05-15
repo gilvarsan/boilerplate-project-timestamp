@@ -1,15 +1,18 @@
-const validarFecha = (date) => {
-  if (!date) {
+const validarFecha = (date_string) => {
+  if (!date_string) {
     return new Date();
   }
   let dateAux;
-  const regexs = [/^\d+$/, /\d{3}-\d{2}-\d{2}/];
 
-  if (regexs[0].test(date)) {
-    dateAux = new Date(Number(date));
-  } else if (regexs[1].test(date)) {
-    dateAux = new Date(date);
+  if (/-/g.test(date_string)) {
+    dateAux = new Date(date_string);
+  } else if (/ /g.test(date_string)) {
+    dateAux = new Date(date_string);
   } else {
+    dateAux = new Date(Number(date_string));
+  }
+
+  if (dateAux.getTime() === null || dateAux.toUTCString() === "Invalid Date") {
     dateAux = 0;
   }
 
